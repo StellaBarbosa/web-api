@@ -43,7 +43,7 @@ router.post("/criar", async (req, res) => {
     peso,
     tipo,
     preco,
-    data: new Date(),
+    data_cadastro: new Date(),
   });
   try {
     await produto.save();
