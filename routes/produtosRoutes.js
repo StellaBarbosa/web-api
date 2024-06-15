@@ -29,7 +29,7 @@ router.get("/produto/:id", async (req, res) => {
   }
 });
 
-router.post("criar/", async (req, res) => {
+router.post("/criar", async (req, res) => {
   const { nome, descricao, cor, peso, tipo, preco } = req.body;
   if (!nome || !preco) {
     return res.status(400).json({
@@ -56,7 +56,7 @@ router.post("criar/", async (req, res) => {
   }
 });
 
-router.put("alterar/:id", async (req, res) => {
+router.put("/alterar/:id", async (req, res) => {
   const { id } = req.params;
   const { nome, descricao, cor, peso, tipo, preco } = req.body;
   if (!nome || !preco) {
@@ -73,14 +73,14 @@ router.put("alterar/:id", async (req, res) => {
     preco,
   };
   try {
-    const produtoAtualizado = await Produto.findByIdAndUpdate(id, produto, {
+    const atualizado = await Produto.findByIdAndUpdate(id, produto, {
       new: true,
     });
-    if (!produtoAtualizado) {
+    if (!atualizado) {
       return res.status(404).json({ erro: "Produto não encontrado." });
     }
     res.status(200).json({
-      produtoAtualizado,
+      atualizado,
     });
   } catch (err) {
     console.error("Erro ao atualizar produto:", err);
@@ -90,14 +90,14 @@ router.put("alterar/:id", async (req, res) => {
   }
 });
 
-router.delete("apagar/:id", async (req, res) => {
+router.delete("/apagar/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const produtoDeletado = await Produto.findByIdAndDelete(id);
-    if (!produtoDeletado) {
+    const excluido = await Produto.findByIdAndDelete(id);
+    if (!excluido) {
       return res.status(404).json({ erro: "Produto não encontrado." });
     }
-    res.status(200).json({ produtoDeletado });
+    res.status(200).json({ excluido });
   } catch (err) {
     console.error("Erro ao deletar produto:", err);
     res.status(500).json({
