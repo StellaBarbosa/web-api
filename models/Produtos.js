@@ -7,6 +7,6 @@ const Produto = mongoose.model("Produto", {
   peso: Number,
   tipo: String,
   preco: String,
-  data: Date,
+  data_cadastro: Date,
 });
 module.exports = Produto;
